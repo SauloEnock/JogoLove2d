@@ -12,20 +12,19 @@ window_height = love.graphics.getHeight()
 function player_load()
     player.x, player.y, player.speed = 100, 100, 100
 
-    player.spritesheet = love.graphics.newImage("player.png")
-	player.width = player.spritesheet:getWidth()
-	player.height = player.spritesheet:getHeight()
+	player.spritesheet = love.graphics.newImage("player.png")
+	player.spritesheet2 = love.graphics.newImage("player(5).png")
     player.grid = anim8.newGrid(64, 64, player.spritesheet:getWidth(), player.spritesheet:getHeight())
-	player.grid2 = anim8.newGrid(192, 192, player.spritesheet:getWidth(), player.spritesheet:getHeight())
+	player.grid2 = anim8.newGrid(192, 192, player.spritesheet2:getWidth(), player.spritesheet:getHeight())
     player.walkingRight = anim8.newAnimation(player.grid('1-9', 12), 0.1)
     player.walkingLeft = anim8.newAnimation(player.grid('1-9', 10), 0.1)
     player.walkingTop = anim8.newAnimation(player.grid('1-9', 9), 0.1)
     player.walkingDown = anim8.newAnimation(player.grid('1-9', 11), 0.1)
     player.stopped = anim8.newAnimation(player.grid('1-1', 11), 0.1)
-	player.hit = anim8.newAnimation(player.grid2('1-6', 10), 0.1)
-	player.hit2 = anim8.newAnimation(player.grid2('1-6', 8), 0.1)
+	player.hit = anim8.newAnimation(player.grid2('1-6', 1), 0.1)
+	player.hit2 = anim8.newAnimation(player.grid2('1-6', 3), 0.1)
 
-    player.currentAnimation = player.walkingLeft
+    player.currentAnimation = player.stopped
 
 	sounds.hit = love.audio.newSource('sword_slash_sound.wav', 'static')
 
