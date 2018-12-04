@@ -1,4 +1,6 @@
 
+require "player"
+
 map = {}
 fisica = {}
 teto = {}
@@ -6,7 +8,10 @@ chao = {}
 wallLeft = {}
 wallRight = {}
 
--- fisica.world = love.physics.newWorld(0, 0, true) -- 9.81 * 64
+window_width = love.graphics.getWidth()
+window_height = love.graphics.getHeight()
+
+-- fisica.world = love.physics.newWorld(0, 0, true) -- 9.81 * 64 [Gravidade]
 
 map = {}
 
@@ -16,8 +21,10 @@ function map_load()
 
 	love.physics.setMeter(64)
     fisica.world = love.physics.newWorld(0, 0, true) -- 9.81 * 64
-    fisica.player = love.physics.newBody(fisica.world, player.x - 25, player.y - 25, "dynamic")
-    fisica.fixture = love.physics.newFixture(fisica.player, love.physics.newRectangleShape(50, 50))
+    fisica.player1 = love.physics.newBody(fisica.world, player1.x - 25, player1.y - 25, "dynamic")
+    fisica.fixture = love.physics.newFixture(fisica.player1, love.physics.newRectangleShape(50, 50))
+    fisica.player2 = love.physics.newBody(fisica.world, player2.x - 25, player2.y - 25, "dynamic")
+    fisica.fixture = love.physics.newFixture(fisica.player2, love.physics.newRectangleShape(50, 50))
 
     teto.body = love.physics.newBody(fisica.world, 0 + love.graphics.getWidth() / 2, 10, "static")
     teto.fixture = love.physics.newFixture(teto.body, love.physics.newRectangleShape(love.graphics.getWidth(), -30))
@@ -39,6 +46,8 @@ function map_draw()
 	love.graphics.draw(map.all, 0, 0, 0, 1.68, 1.8)
 
 end
+
+
 
 --[[
 

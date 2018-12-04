@@ -7,7 +7,10 @@ chao = {}
 wallLeft = {}
 wallRight = {}
 
--- fisica.world = love.physics.newWorld(0, 0, true) -- 9.81 * 64
+window_width = love.graphics.getWidth()
+window_height = love.graphics.getHeight()
+
+-- fisica.world = love.physics.newWorld(0, 0, true) -- 9.81 * 64 [Gravidade]
 
 map = {}
 
@@ -17,8 +20,10 @@ function map_load()
 
 	love.physics.setMeter(64)
     fisica.world = love.physics.newWorld(0, 0, true) -- 9.81 * 64
-    fisica.player = love.physics.newBody(fisica.world, player.x - 25, player.y - 25, "dynamic")
-    fisica.fixture = love.physics.newFixture(fisica.player, love.physics.newRectangleShape(50, 50))
+    fisica.player1 = love.physics.newBody(fisica.world, 75, 75, "dynamic")
+    fisica.fixture = love.physics.newFixture(fisica.player1, love.physics.newRectangleShape(50, 50))
+    fisica.player2 = love.physics.newBody(fisica.world, 75, 375, "dynamic")
+    fisica.fixture = love.physics.newFixture(fisica.player2, love.physics.newRectangleShape(50, 50))
 
     teto.body = love.physics.newBody(fisica.world, 0 + love.graphics.getWidth() / 2, 10, "static")
     teto.fixture = love.physics.newFixture(teto.body, love.physics.newRectangleShape(love.graphics.getWidth(), -30))
