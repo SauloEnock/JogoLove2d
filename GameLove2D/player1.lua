@@ -1,6 +1,7 @@
 
 require "map"
 anim8 = require "anim8"
+bump = require "bump"
 
 sounds = {}
 player1 = {}
@@ -9,7 +10,9 @@ sounds.hit = love.audio.newSource('sounds/sword_slash_sound.wav', 'static')
 sounds.hit2 = love.audio.newSource('sounds/mace_hit_sound.wav', 'static')
 
 function player1_load()
-    player1.x, player1.y, player1.speed = 100, 100, 100
+
+	player1.x, player1.y, player1.speed, player1.width, player1.height = 100, 100, 100, 40, 50
+	fisica.world:add(player1, player1.x, player1.y, player1.width, player1.height)
 
     player1.spritesheet = love.graphics.newImage("player(1).png")
 	player1.width = player1.spritesheet:getWidth()
@@ -32,18 +35,24 @@ end
 
 function player1_update(dt)
 	player1.currentAnimation:update(dt)
-    if (love.keyboard.isDown("up")) then
-    	player1.currentAnimation = player1.walkingTop
-        fisica.player1:applyForce(0, -400)
-    elseif (love.keyboard.isDown("down")) then
-    	player1.currentAnimation = player1.walkingDown
-    	fisica.player1:applyForce(0, 400)
-    elseif (love.keyboard.isDown("left")) then
-    	player1.currentAnimation = player1.walkingLeft
-    	fisica.player1:applyForce(-400, 0)
-    elseif (love.keyboard.isDown("right")) then
-    	player1.currentAnimation = player1.walkingRight
-    	fisica.player1:applyForce(400, 0)
+
+    --fisica.world:update(dt)
+    --player1.x = fisica.player1:getX() - 25
+	--player1.y = fisica.player1:getY() - 25
+
+	xlr8 = dt * player1.speed
+	if (love.keyboard.isDown("up")) then
+		player1.currentAnimation = player1.walkingTop
+        player1.x, player1.y = fisica.world:move(player1, player1.x, player1.y - xlr8)
+	elseif (love.keyboard.isDown("down")) then
+		player1.currentAnimation = player1.walkingDown
+        player1.x, player1.y = fisica.world:move(player1, player1.x, player1.y + xlr8)
+	elseif (love.keyboard.isDown("left")) then
+		player1.currentAnimation = player1.walkingLeft
+        player1.x, player1.y = fisica.world:move(player1, player1.x - xlr8, player1.y)
+	elseif (love.keyboard.isDown("right")) then
+		player1.currentAnimation = player1.walkingRight
+		player1.x, player1.y = fisica.world:move(player1, player1.x + xlr8, player1.y)
 	elseif (love.keyboard.isDown("return")) then
 		player1.currentAnimation = player1.hit
 		love.audio.play(sounds.hit)
@@ -51,13 +60,8 @@ function player1_update(dt)
 		player1.currentAnimation = player1.hit2
 		love.audio.play(sounds.hit)
 	else
-    	player1.currentAnimation = player1.stopped
+		player1.currentAnimation = player1.stopped
     end
-
-    fisica.world:update(dt)
-    player1.x = fisica.player1:getX() - 25
-	player1.y = fisica.player1:getY() - 25
-
 end
 
 
@@ -68,7 +72,7 @@ function player1_draw()
 	else
 		player1.currentAnimation:draw(player1.spritesheet, player1.x, player1.y)
 	end
-    --love.graphics.rectangle("fill", player.x, player.y, 50, 50)
+    love.graphics.rectangle("fill", player1.x+10, player1.y+10, 40, 55)
     -- love.graphics.rectangle("fill", 0, love.graphics.getHeight() - 90, love.graphics.getWidth(), 100)
 end
 

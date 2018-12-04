@@ -1,15 +1,12 @@
 
 
-mapa = require "map"
+mapa = require "maptiled(1)"
 bump = require "bump"
 
-player = { x = 0, y = 0, width = 50, height = 50, speed = 100}
 fisica = {}
+fisica.world = bump.newWorld(64)
 
-function love.load()
-    fisica.world = bump.newWorld(32)
-    fisica.world:add(player, player.x, player.y, player.width, player.height)
-
+function map_load()
     for i = 1, #mapa.layers do
         if mapa.layers[i].type == "objectgroup" then
             v = mapa.layers[i]
@@ -21,26 +18,11 @@ function love.load()
     end
 end
 
-function love.update(dt)
-    diff = dt * player.speed
-    cols = {}
-    if (love.keyboard.isDown("up")) then
-        player.x, player.y, cols = fisica.world:move(player, player.x, player.y - diff)
-    elseif (love.keyboard.isDown("down")) then
-        player.x, player.y, cols = fisica.world:move(player, player.x, player.y + diff)
-    elseif (love.keyboard.isDown("left")) then
-        player.x, player.y, cols = fisica.world:move(player, player.x - diff, player.y)
-    elseif (love.keyboard.isDown("right")) then
-        player.x, player.y, cols = fisica.world:move(player, player.x + diff, player.y)
-    end
-
-    for i = 1, #cols do
-        print(cols[i].other.name)
-    end
+function map_update(dt)
+    
 end
 
-function love.draw()
-    love.graphics.rectangle("line", player.x, player.y, player.width, player.height)
+function map_draw()
 
     for i = 1, #mapa.layers do
         if mapa.layers[i].type == "objectgroup" then
@@ -75,10 +57,10 @@ function map_load()
 
 	love.physics.setMeter(64)
     fisica.world = love.physics.newWorld(0, 0, true) -- 9.81 * 64
-    fisica.player1 = love.physics.newBody(fisica.world, 75, 75, "dynamic")
-    fisica.fixture = love.physics.newFixture(fisica.player1, love.physics.newRectangleShape(50, 50))
-    fisica.player2 = love.physics.newBody(fisica.world, 75, 375, "dynamic")
-    fisica.fixture = love.physics.newFixture(fisica.player2, love.physics.newRectangleShape(50, 50))
+    fisica.player11 = love.physics.newBody(fisica.world, 75, 75, "dynamic")
+    fisica.fixture = love.physics.newFixture(fisica.player11, love.physics.newRectangleShape(50, 50))
+    fisica.player12 = love.physics.newBody(fisica.world, 75, 375, "dynamic")
+    fisica.fixture = love.physics.newFixture(fisica.player12, love.physics.newRectangleShape(50, 50))
 
     teto.body = love.physics.newBody(fisica.world, 0 + love.graphics.getWidth() / 2, 10, "static")
     teto.fixture = love.physics.newFixture(teto.body, love.physics.newRectangleShape(love.graphics.getWidth(), -30))
