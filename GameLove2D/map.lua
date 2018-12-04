@@ -1,5 +1,60 @@
 
 
+mapa = require "map"
+bump = require "bump"
+
+player = { x = 0, y = 0, width = 50, height = 50, speed = 100}
+fisica = {}
+
+function love.load()
+    fisica.world = bump.newWorld(32)
+    fisica.world:add(player, player.x, player.y, player.width, player.height)
+
+    for i = 1, #mapa.layers do
+        if mapa.layers[i].type == "objectgroup" then
+            v = mapa.layers[i]
+            for j = 1, #v.objects do
+                objeto = v.objects[j]
+                fisica.world:add(objeto, objeto.x, objeto.y, objeto.width, objeto.height)
+            end
+        end
+    end
+end
+
+function love.update(dt)
+    diff = dt * player.speed
+    cols = {}
+    if (love.keyboard.isDown("up")) then
+        player.x, player.y, cols = fisica.world:move(player, player.x, player.y - diff)
+    elseif (love.keyboard.isDown("down")) then
+        player.x, player.y, cols = fisica.world:move(player, player.x, player.y + diff)
+    elseif (love.keyboard.isDown("left")) then
+        player.x, player.y, cols = fisica.world:move(player, player.x - diff, player.y)
+    elseif (love.keyboard.isDown("right")) then
+        player.x, player.y, cols = fisica.world:move(player, player.x + diff, player.y)
+    end
+
+    for i = 1, #cols do
+        print(cols[i].other.name)
+    end
+end
+
+function love.draw()
+    love.graphics.rectangle("line", player.x, player.y, player.width, player.height)
+
+    for i = 1, #mapa.layers do
+        if mapa.layers[i].type == "objectgroup" then
+            v = mapa.layers[i]
+            for j = 1, #v.objects do
+                objeto = v.objects[j]
+                love.graphics.rectangle("fill", objeto.x, objeto.y, objeto.width, objeto.height)
+            end
+        end
+    end
+end
+
+--[[
+
 map = {}
 fisica = {}
 teto = {}
@@ -44,56 +99,6 @@ end
 function map_draw()
 	love.graphics.draw(map.all, 0, 0, 0, 1.68, 1.8)
 
-end
-
---[[
-
-fisica = {}
-
-map = {}
-pedra = {}
-chao = {}
-wallLeft = {}
-wallRight = {}
-
-fisica.world = love.physics.newWorld(0, 0, true) -- 9.81 * 64
-
-function map_load()
-
-    map.all = love.graphics.newImage("arena(1).png")
-
-    pedra.body = love.physics.newBody(fisica.world, 0, 0, "static")
-    pedra.fixture = love.physics.newFixture(pedra.body, love.physics.newRectangleShape(50, 50))
-
-    chao.body = love.physics.newBody(fisica.world, 0 + love.graphics.getWidth() / 1, love.graphics.getHeight() - 10, "static")
-    chao.fixture = love.physics.newFixture(chao.body, love.physics.newRectangleShape(love.graphics.getWidth(), 100))
-
-    wallLeft.body = love.physics.newBody(fisica.world, 0, 0, "static")
-    wallLeft.fixture = love.physics.newFixture(wallLeft.body, love.graphics.newRectangleShape(10, love.graphics.getHeight()))
-
-    wallRight.body = love.physics.newBody(fisica.world, 0, 0, "static")
-    wallRight.fixture = love.physics.newFixture(wallRight.body, love.graphics.newRectangleShape(600, love.graphics.getHeight()))
-
-end
-
-function map_draw()
-	love.graphics.draw(map.all, 10, 50, 0, 1.65, 3.4)
-end
-
---
-
-map = {}
-
-
-function map_load()
-	map.all = love.graphics.newImage("arena(1).png")
-
-end
-
-
-
-function map_draw()
-	love.graphics.draw(map.all, 10, 50, 0, 2.65, 3.4)
 end
 
 ]]--
