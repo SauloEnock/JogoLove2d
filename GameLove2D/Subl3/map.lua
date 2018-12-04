@@ -1,6 +1,4 @@
 
-require "player"
-
 map = {}
 fisica = {}
 teto = {}
@@ -21,9 +19,9 @@ function map_load()
 
 	love.physics.setMeter(64)
     fisica.world = love.physics.newWorld(0, 0, true) -- 9.81 * 64
-    fisica.player1 = love.physics.newBody(fisica.world, player1.x - 25, player1.y - 25, "dynamic")
+    fisica.player1 = love.physics.newBody(fisica.world, 75, 75, "dynamic")
     fisica.fixture = love.physics.newFixture(fisica.player1, love.physics.newRectangleShape(50, 50))
-    fisica.player2 = love.physics.newBody(fisica.world, player2.x - 25, player2.y - 25, "dynamic")
+    fisica.player2 = love.physics.newBody(fisica.world, 75, 375, "dynamic")
     fisica.fixture = love.physics.newFixture(fisica.player2, love.physics.newRectangleShape(50, 50))
 
     teto.body = love.physics.newBody(fisica.world, 0 + love.graphics.getWidth() / 2, 10, "static")
