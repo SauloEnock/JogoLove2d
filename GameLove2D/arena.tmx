@@ -23,7 +23,7 @@
  </layer>
  <objectgroup id="3" name="Camada de Objetos">
   <object id="1" name="wallLeft" x="-12.3333" y="-2.66667" width="4" height="591"/>
-  <object id="5" name="chao" x="-16.9068" y="580.813" width="809.948" height="4.61538"/>
+  <object id="5" name="chao" x="-16.9068" y="576.813" width="809.948" height="4.61538"/>
   <object id="6" name="wallRight" x="787.654" y="-0.910253" width="4.34615" height="587.782"/>
   <object id="7" name="teto" x="-10.3398" y="-3.43987" width="803.194" height="3.61538" rotation="0.152184"/>
  </objectgroup>

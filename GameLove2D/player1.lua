@@ -68,7 +68,7 @@ function player1_draw()
 	else
 		player1.currentAnimation:draw(player1.spritesheet, player1.x, player1.y)
 	end
-    love.graphics.rectangle("fill", player1.x+10, player1.y+10, 40, 55)
+    --love.graphics.rectangle("fill", player1.x+10, player1.y+10, 40, 55)
     -- love.graphics.rectangle("fill", 0, love.graphics.getHeight() - 90, love.graphics.getWidth(), 100)
 end
 
