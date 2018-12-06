@@ -7,7 +7,7 @@ player1 = {}
 
 function player1_load()
 
-    player1.x, player1.y, player1.speed, player1.width, player1.height = 100, 100, 150, 40, 50
+    player1.x, player1.y, player1.speed, player1.width, player1.height = 100, 100, 150, 35, 51
 	fisica.world:add(player1, player1.x, player1.y, player1.width, player1.height)
 	player1.top, player1.down, player1.right, player1.left = false, true, false, false
 	
@@ -83,6 +83,8 @@ function player1_draw()
 	else
 		player1.currentAnimation:draw(player1.spritesheet, player1.x, player1.y)
 	end
+	--love.graphics.rectangle("fill", player1.x+16, player1.y+13, 35, 51)
+	--love.graphics.rectangle("fill", 0, love.graphics.getHeight() - 90, love.graphics.getWidth(), 100)
 end
 
 function player1_released(key) 
