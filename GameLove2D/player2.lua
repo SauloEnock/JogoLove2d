@@ -7,7 +7,7 @@ player2 = {}
 
 function player2_load()
 
-    player2.x, player2.y, player2.speed, player2.width, player2.height = 400, 100, 100, 40, 50
+    player2.x, player2.y, player2.speed, player2.width, player2.height = 400, 100, 150, 40, 50
 	fisica.world:add(player2, player2.x, player2.y, player2.width, player2.height)
 	
     player2.spritesheet = love.graphics.newImage("player(2).png")
@@ -49,10 +49,10 @@ function player2_update(dt)
 		player2.x, player2.y = fisica.world:move(player2, player2.x + xlr8, player2.y)
 	elseif (love.keyboard.isDown("q")) then
 		player2.currentAnimation = player2.hit
-		love.audio.play(sounds.hit)
+		love.audio.play(sounds.hit2)
 	elseif (love.keyboard.isDown("e")) then
 		player2.currentAnimation = player2.hit2
-		love.audio.play(sounds.hit)
+		love.audio.play(sounds.hit2)
 	else
 		player2.currentAnimation = player2.stopped
     end

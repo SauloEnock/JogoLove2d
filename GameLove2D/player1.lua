@@ -3,15 +3,11 @@ require "map"
 anim8 = require "anim8"
 bump = require "bump"
 
-sounds = {}
 player1 = {}
-
-sounds.hit = love.audio.newSource('sounds/sword_slash_sound.wav', 'static')
-sounds.hit2 = love.audio.newSource('sounds/mace_hit_sound.wav', 'static')
 
 function player1_load()
 
-	player1.x, player1.y, player1.speed, player1.width, player1.height = 100, 100, 100, 40, 50
+	player1.x, player1.y, player1.speed, player1.width, player1.height = 100, 100, 150, 40, 50
 	fisica.world:add(player1, player1.x, player1.y, player1.width, player1.height)
 
     player1.spritesheet = love.graphics.newImage("player(1).png")

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="2018.11.29" orientation="orthogonal" renderorder="right-down" width="7" height="5" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="9">
+<map version="1.2" tiledversion="2018.11.29" orientation="orthogonal" renderorder="right-down" width="13" height="10" tilewidth="64" tileheight="64" infinite="0" nextlayerid="7" nextobjectid="9">
  <tileset firstgid="1" name="arena" tilewidth="32" tileheight="32" tilecount="176" columns="16">
   <image source="Sprites/Maps/Arena/arena.png" width="512" height="368"/>
  </tileset>
@@ -7,19 +7,24 @@
   <image source="Sprites/Maps/Arena/arena.png" width="512" height="368"/>
  </tileset>
  <tileset firstgid="353" source="arena.tsx"/>
- <layer id="2" name="Camada - Objetos" width="7" height="5">
+ <layer id="6" name="Camada - Objetos" width="13" height="10">
   <data encoding="csv">
-353,354,355,356,357,358,359,
-360,361,362,363,364,365,366,
-367,368,369,370,371,372,373,
-374,375,376,377,378,379,380,
-381,382,383,384,385,386,387
+0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
  <objectgroup id="3" name="Camada de Objetos">
-  <object id="1" x="-4" y="-2.66667" width="6.66667" height="325.333"/>
-  <object id="5" x="-3.84615" y="317.692" width="454.615" height="4.61538"/>
-  <object id="6" x="446.154" y="-3.07692" width="3.84615" height="324.615"/>
-  <object id="7" x="-3.84615" y="-2.30769" width="453.846" height="4.61538"/>
+  <object id="1" name="wallLeft" x="-12.3333" y="-2.66667" width="4" height="591"/>
+  <object id="5" name="chao" x="-16.9068" y="580.813" width="809.948" height="4.61538"/>
+  <object id="6" name="wallRight" x="787.654" y="-0.910253" width="4.34615" height="587.782"/>
+  <object id="7" name="teto" x="-10.3398" y="-3.43987" width="803.194" height="3.61538" rotation="0.152184"/>
  </objectgroup>
 </map>

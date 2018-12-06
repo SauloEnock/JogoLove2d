@@ -3,10 +3,16 @@
 mapa = require "maptiled(1)"
 bump = require "bump"
 
+sounds = {}
 fisica = {}
 fisica.world = bump.newWorld(64)
 
+
 function map_load()
+    sounds.hit = love.audio.newSource('sounds/sword_slash_sound.wav', 'static')
+    sounds.hit2 = love.audio.newSource('sounds/mace_hit_sound.wav', 'static')
+    arena = love.graphics.newImage("arena(2).png")
+
     for i = 1, #mapa.layers do
         if mapa.layers[i].type == "objectgroup" then
             v = mapa.layers[i]
@@ -23,8 +29,12 @@ function map_update(dt)
 end
 
 function map_draw()
+    love.graphics.draw(arena, 0, -4)
+end
 
-    for i = 1, #mapa.layers do
+--[[
+
+for i = 1, #mapa.layers do
         if mapa.layers[i].type == "objectgroup" then
             v = mapa.layers[i]
             for j = 1, #v.objects do
@@ -33,9 +43,8 @@ function map_draw()
             end
         end
     end
-end
 
---[[
+---
 
 map = {}
 fisica = {}
