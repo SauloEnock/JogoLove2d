@@ -21,6 +21,10 @@ function love.draw()
 	player2_draw()
 end
 
+function love.keyreleased(key)
+	player1_released(key)
+	player2_released(key)
+end
 
 
 

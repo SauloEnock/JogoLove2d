@@ -2,7 +2,6 @@
 require "map"
 anim8 = require "anim8"
 bump = require "bump"
-up, down, right, left = true, false, false, false
 
 player2 = {}
 
@@ -10,6 +9,7 @@ function player2_load()
 
     player2.x, player2.y, player2.speed, player2.width, player2.height = 400, 100, 150, 40, 50
 	fisica.world:add(player2, player2.x, player2.y, player2.width, player2.height)
+	player2.top, player2.down, player2.right, player2.left = false, true, false, false
 	
     player2.spritesheet = love.graphics.newImage("player(2).png")
 	player2.width = player2.spritesheet:getWidth()
@@ -34,23 +34,20 @@ end
 function player2_update(dt)
 	player2.currentAnimation:update(dt)
 
-    --fisica.world:update(dt)
-    --player2.x = fisica.player2:getX() - 25
-	--player2.y = fisica.player2:getY() - 25
+	player2.xlr8 = dt * player2.speed
 
-	xlr8 = dt * player2.speed
 	if (love.keyboard.isDown("w")) then
 		player2.currentAnimation = player2.walkingTop
-        player2.x, player2.y = fisica.world:move(player2, player2.x, player2.y - xlr8)
+        player2.x, player2.y = fisica.world:move(player2, player2.x, player2.y - player2.xlr8)
 	elseif (love.keyboard.isDown("s")) then
 		player2.currentAnimation = player2.walkingDown
-        player2.x, player2.y = fisica.world:move(player2, player2.x, player2.y + xlr8)
+        player2.x, player2.y = fisica.world:move(player2, player2.x, player2.y + player2.xlr8)
 	elseif (love.keyboard.isDown("a")) then
 		player2.currentAnimation = player2.walkingLeft
-        player2.x, player2.y = fisica.world:move(player2, player2.x - xlr8, player2.y)
+        player2.x, player2.y = fisica.world:move(player2, player2.x - player2.xlr8, player2.y)
 	elseif (love.keyboard.isDown("d")) then
 		player2.currentAnimation = player2.walkingRight
-		player2.x, player2.y = fisica.world:move(player2, player2.x + xlr8, player2.y)
+		player2.x, player2.y = fisica.world:move(player2, player2.x + player2.xlr8, player2.y)
 	elseif (love.keyboard.isDown("q")) then
 		player2.currentAnimation = player2.hit
 		love.audio.play(sounds.hit2)
@@ -58,9 +55,16 @@ function player2_update(dt)
 		player2.currentAnimation = player2.hit2
 		love.audio.play(sounds.hit2)
 	else
-		player2.currentAnimation = player2.stoppedDown
-    end
-
+		if player2.top then
+			player2.currentAnimation = player2.stoppedTop
+		elseif player2.down then 
+			player2.currentAnimation = player2.stoppedDown
+		elseif player2.right then 
+			player2.currentAnimation = player2.stoppedRight
+		elseif player2.left then 
+			player2.currentAnimation = player2.stoppedLeft
+		end
+	end
 end
 
 function player2_draw()
@@ -71,9 +75,15 @@ function player2_draw()
 	end
 end
 
-function last_button(key) 
-	if key == "left" then
-		left, right = true, false
-		currentAnimation = parado
+function player2_released(key) 
+	if key == "w" then
+		player2.top, player2.down, player2.right, player2.left = true, false, false, false
+	elseif key == "s" then 
+		player2.top, player2.down, player2.right, player2.left = false, true, false, false
+	elseif key == "d" then 
+		player2.top, player2.down, player2.right, player2.left = false, false, true, false
+	elseif key == "a" then 
+		player2.top, player2.down, player2.right, player2.left = false, false, false, true
 	end
+	--return key
 end
