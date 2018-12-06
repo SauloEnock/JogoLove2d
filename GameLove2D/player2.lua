@@ -11,7 +11,7 @@ function player2_load()
 	fisica.world:add(player2, player2.x, player2.y, player2.width, player2.height)
 	player2.top, player2.down, player2.right, player2.left = false, true, false, false
 	
-    player2.spritesheet = love.graphics.newImage("player(2).png")
+    player2.spritesheet = love.graphics.newImage("Sprites/Characters/player(2).png")
 	player2.width = player2.spritesheet:getWidth()
 	player2.height = player2.spritesheet:getHeight()
     player2.grid = anim8.newGrid(64, 64, player2.spritesheet:getWidth(), player2.spritesheet:getHeight())
@@ -24,8 +24,10 @@ function player2_load()
 	player2.stoppedDown = anim8.newAnimation(player2.grid('1-1', 11), 0.1)
 	player2.stoppedRight = anim8.newAnimation(player2.grid('1-1', 12), 0.1)
 	player2.stoppedLeft = anim8.newAnimation(player2.grid('1-1', 10), 0.1)
-	player2.hit = anim8.newAnimation(player2.grid2('1-6', 10), 0.1)
-	player2.hit2 = anim8.newAnimation(player2.grid2('1-6', 8), 0.1)
+	player2.hitTop = anim8.newAnimation(player2.grid2('1-6', 8), 0.1)
+	player2.hitDown = anim8.newAnimation(player2.grid2('1-6', 10), 0.1)
+	player2.hitRight = anim8.newAnimation(player2.grid2('1-6', 11), 0.1)
+	player2.hitLeft = anim8.newAnimation(player2.grid2('1-6', 9), 0.1)
 
     player2.currentAnimation = player2.stoppedDown
 
@@ -48,12 +50,20 @@ function player2_update(dt)
 	elseif (love.keyboard.isDown("d")) then
 		player2.currentAnimation = player2.walkingRight
 		player2.x, player2.y = fisica.world:move(player2, player2.x + player2.xlr8, player2.y)
-	elseif (love.keyboard.isDown("q")) then
-		player2.currentAnimation = player2.hit
-		love.audio.play(sounds.hit2)
-	elseif (love.keyboard.isDown("e")) then
-		player2.currentAnimation = player2.hit2
-		love.audio.play(sounds.hit2)
+	elseif (love.keyboard.isDown("q")) or (love.keyboard.isDown("e")) then
+		if player2.top then	
+			player2.currentAnimation = player2.hitTop
+			love.audio.play(sounds.hit2)
+		elseif player2.down then 
+			player2.currentAnimation = player2.hitDown
+			love.audio.play(sounds.hit2)
+		elseif player2.right then 
+			player2.currentAnimation = player2.hitRight
+			love.audio.play(sounds.hit2)
+		elseif player2.left then
+			player2.currentAnimation = player2.hitLeft
+			love.audio.play(sounds.hit2)
+		end
 	else
 		if player2.top then
 			player2.currentAnimation = player2.stoppedTop
@@ -68,7 +78,7 @@ function player2_update(dt)
 end
 
 function player2_draw()
-	if player2.currentAnimation == player2.hit or player2.currentAnimation == player2.hit2 then
+	if player2.currentAnimation == player2.hitTop or player2.currentAnimation == player2.hitDown or player2.currentAnimation == player2.hitRight or player2.currentAnimation == player2.hitLeft then
 		player2.currentAnimation:draw(player2.spritesheet, player2.x-65, player2.y-64)
 	else
 		player2.currentAnimation:draw(player2.spritesheet, player2.x, player2.y)
