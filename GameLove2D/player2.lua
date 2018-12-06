@@ -2,10 +2,10 @@
 require "map"
 anim8 = require "anim8"
 bump = require "bump"
+up, down, right, left = true, false, false, false
 
 player2 = {}
 
-lastKey = nil
 function player2_load()
 
     player2.x, player2.y, player2.speed, player2.width, player2.height = 400, 100, 150, 40, 50
@@ -22,8 +22,8 @@ function player2_load()
     player2.walkingDown = anim8.newAnimation(player2.grid('1-9', 11), 0.1)
 	player2.stoppedTop = anim8.newAnimation(player2.grid('1-1', 9), 0.1)
 	player2.stoppedDown = anim8.newAnimation(player2.grid('1-1', 11), 0.1)
-	player2.stoppedRight = anim8.newAnimation(player2.grid('1-1', 11), 0.1)
-	player2.stoppedLeft = anim8.newAnimation(player2.grid('1-1', 11), 0.1)
+	player2.stoppedRight = anim8.newAnimation(player2.grid('1-1', 12), 0.1)
+	player2.stoppedLeft = anim8.newAnimation(player2.grid('1-1', 10), 0.1)
 	player2.hit = anim8.newAnimation(player2.grid2('1-6', 10), 0.1)
 	player2.hit2 = anim8.newAnimation(player2.grid2('1-6', 8), 0.1)
 
@@ -71,8 +71,6 @@ function player2_draw()
 	end
 end
 
-
-right = true 
 function last_button(key) 
 	if key == "left" then
 		left, right = true, false
