@@ -2,11 +2,16 @@
 require "map"
 anim8 = require "anim8"
 bump = require "bump"
+-- player2 = require "player2"
 
 player1 = {}
 
 function player1_load()
-
+	
+	player1.attack = false
+	player1.attackX = 21
+	player1.attackY = 6
+	player1.life, player1.shield  = 1000, 0
     player1.x, player1.y, player1.speed, player1.width, player1.height = 100, 100, 150, 35, 51
 	fisica.world:add(player1, player1.x, player1.y, player1.width, player1.height)
 	player1.top, player1.down, player1.right, player1.left = false, true, false, false
@@ -28,6 +33,7 @@ function player1_load()
 	player1.hitDown = anim8.newAnimation(player1.grid2('1-6', 10), 0.1)
 	player1.hitRight = anim8.newAnimation(player1.grid2('1-6', 11), 0.1)
 	player1.hitLeft = anim8.newAnimation(player1.grid2('1-6', 9), 0.1)
+	player1.death = anim8.newAnimation(player1.grid('1-6', 21), 0.1)
 
     player1.currentAnimation = player1.stoppedDown
 
@@ -51,6 +57,7 @@ function player1_update(dt)
 		player1.currentAnimation = player1.walkingRight
 		player1.x, player1.y = fisica.world:move(player1, player1.x + player1.xlr8, player1.y)
 	elseif (love.keyboard.isDown("return")) or (love.keyboard.isDown("rctrl")) then
+		player1.attack = true
 		if player1.top then	
 			player1.currentAnimation = player1.hitTop
 			love.audio.play(sounds.hit)
@@ -64,7 +71,26 @@ function player1_update(dt)
 			player1.currentAnimation = player1.hitLeft
 			love.audio.play(sounds.hit)
 		end
+
+		if player2.attack and player2.top and player2.y-player2.attackY <= player1.y then
+			player1.life = player1.life - 1000
+			print(player1.life)
+			player1.x, player1.y = fisica.world:move(player1, player1.x, player1.y-25)
+		elseif player2.attack and player2.down and player2.height+player2.attackY >= player1.y then
+			player1.life = player1.life - 1000
+			print(player1.life)
+			player1.x, player1.y = fisica.world:move(player1, player1.x, player1.y+25)
+		elseif player2.attack and player2.right and player2.width+player2.attackX >= player1.x then
+			player1.life = player1.life - 1000
+			print(player1.life)
+			player1.x, player1.y = fisica.world:move(player1, player1.x+25, player1.y)
+		elseif player2.attack and player2.left and player2.x-player2.attackX <= player1.x then
+			player1.life = player1.life - 1000
+			print(player1.life)
+			player1.x, player1.y = fisica.world:move(player1, player1.x-25, player1.y)
+		end
 	else
+		player1.attack = false
 		if player1.top then
 			player1.currentAnimation = player1.stoppedTop
 		elseif player1.down then 
@@ -74,6 +100,10 @@ function player1_update(dt)
 		elseif player1.left then 
 			player1.currentAnimation = player1.stoppedLeft
 		end
+	end
+
+	if player1.life == 0 then
+		player1.currentAnimation = player1.death
 	end
 end
 
@@ -99,6 +129,8 @@ function player1_released(key)
 	end
 	--return key
 end
+
+-- return player1
 
 --[[
 

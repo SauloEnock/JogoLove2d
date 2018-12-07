@@ -2,11 +2,20 @@
 require "map"
 anim8 = require "anim8"
 bump = require "bump"
+-- player1 = require "player1"
 
 player2 = {}
 
+function update(player)
+	return player
+end
+
 function player2_load()
 
+	player2.attack = false
+	player2.attackX = 21
+	player2.attackY = 6
+	player2.life, player2.shield  = 1000, 0
     player2.x, player2.y, player2.speed, player2.width, player2.height = 400, 100, 150, 35, 51
 	fisica.world:add(player2, player2.x, player2.y, player2.width, player2.height)
 	player2.top, player2.down, player2.right, player2.left = false, true, false, false
@@ -16,18 +25,18 @@ function player2_load()
 	player2.height = player2.spritesheet:getHeight()
     player2.grid = anim8.newGrid(64, 64, player2.spritesheet:getWidth(), player2.spritesheet:getHeight())
 	player2.grid2 = anim8.newGrid(192, 192, player2.spritesheet:getWidth(), player2.spritesheet:getHeight())
-    player2.walkingRight = anim8.newAnimation(player2.grid('1-9', 12), 0.1)
-    player2.walkingLeft = anim8.newAnimation(player2.grid('1-9', 10), 0.1)
-    player2.walkingTop = anim8.newAnimation(player2.grid('1-9', 9), 0.1)
-    player2.walkingDown = anim8.newAnimation(player2.grid('1-9', 11), 0.1)
-	player2.stoppedTop = anim8.newAnimation(player2.grid('1-1', 9), 0.1)
-	player2.stoppedDown = anim8.newAnimation(player2.grid('1-1', 11), 0.1)
-	player2.stoppedRight = anim8.newAnimation(player2.grid('1-1', 12), 0.1)
-	player2.stoppedLeft = anim8.newAnimation(player2.grid('1-1', 10), 0.1)
-	player2.hitTop = anim8.newAnimation(player2.grid2('1-6', 8), 0.1)
-	player2.hitDown = anim8.newAnimation(player2.grid2('1-6', 10), 0.1)
-	player2.hitRight = anim8.newAnimation(player2.grid2('1-6', 11), 0.1)
-	player2.hitLeft = anim8.newAnimation(player2.grid2('1-6', 9), 0.1)
+    player2.walkingRight = anim8.newAnimation(player2.grid('1-9', 12), 0.15)
+    player2.walkingLeft = anim8.newAnimation(player2.grid('1-9', 10), 0.15)
+    player2.walkingTop = anim8.newAnimation(player2.grid('1-9', 9), 0.15)
+    player2.walkingDown = anim8.newAnimation(player2.grid('1-9', 11), 0.15)
+	player2.stoppedTop = anim8.newAnimation(player2.grid('1-1', 9), 0.15)
+	player2.stoppedDown = anim8.newAnimation(player2.grid('1-1', 11), 0.15)
+	player2.stoppedRight = anim8.newAnimation(player2.grid('1-1', 12), 0.15)
+	player2.stoppedLeft = anim8.newAnimation(player2.grid('1-1', 10), 0.15)
+	player2.hitTop = anim8.newAnimation(player2.grid2('1-6', 8), 0.15)
+	player2.hitDown = anim8.newAnimation(player2.grid2('1-6', 10), 0.15)
+	player2.hitRight = anim8.newAnimation(player2.grid2('1-6', 11), 0.15)
+	player2.hitLeft = anim8.newAnimation(player2.grid2('1-6', 9), 0.15)
 
     player2.currentAnimation = player2.stoppedDown
 
@@ -51,6 +60,7 @@ function player2_update(dt)
 		player2.currentAnimation = player2.walkingRight
 		player2.x, player2.y = fisica.world:move(player2, player2.x + player2.xlr8, player2.y)
 	elseif (love.keyboard.isDown("q")) or (love.keyboard.isDown("e")) then
+		player2.attack = true
 		if player2.top then	
 			player2.currentAnimation = player2.hitTop
 			love.audio.play(sounds.hit2)
@@ -64,7 +74,26 @@ function player2_update(dt)
 			player2.currentAnimation = player2.hitLeft
 			love.audio.play(sounds.hit2)
 		end
+
+		if player1.attack and player1.top and player1.y-player1.attackY <= player2.y then
+			player2.life = player2.life - 1000
+			print(player2.life)
+			player2.x, player2.y = fisica.world:move(player2, player2.x, player2.y-25)
+		elseif player1.attack and player1.down and player1.height+player1.attackY >= player2.y then
+			player2.life = player2.life - 1000
+			print(player2.life)
+			player2.x, player2.y = fisica.world:move(player2, player2.x, player2.y+25)
+		elseif player1.attack and player1.right and player1.width+player1.attackX >= player2.x then
+			player2.life = player2.life - 1000
+			print(player2.life)
+			player2.x, player2.y = fisica.world:move(player2, player2.x+25, player2.y)
+		elseif player1.attack and player1.left and player1.x-player1.attackX <= player2.x then
+			player2.life = player2.life - 1000
+			print(player2.life)
+			player2.x, player2.y = fisica.world:move(player2, player2.x-25, player2.y)
+		end
 	else
+		player2.attack = false
 		if player2.top then
 			player2.currentAnimation = player2.stoppedTop
 		elseif player2.down then 
@@ -75,6 +104,12 @@ function player2_update(dt)
 			player2.currentAnimation = player2.stoppedLeft
 		end
 	end
+
+	if player2.life == 0 then
+		player2.currentAnimation = player2.death
+	end
+
+	update(player2)
 end
 
 function player2_draw()
@@ -98,3 +133,5 @@ function player2_released(key)
 	end
 	--return key
 end
+
+

@@ -1,103 +1,240 @@
 
+-- require "map"
+-- anim8 = require "anim8"
+-- bump = require "bump"
 
-require "map"
-anim8 = require "anim8"
-bump = require "bump"
+-- player1 = {}
+-- player2 = {}
 
-player1 = {}
-
-function player1_load()
-
-    player1.x, player1.y, player1.speed, player1.width, player1.height = 400, 100, 150, 40, 50
-	fisica.world:add(player1, player1.x, player1.y, player1.width, player1.height)
-	player1.top, player1.down, player1.right, player1.left = false, true, false, false
+-- function player_load()
+-- 	player1.attack = false
+-- 	player1.attackX = 21
+-- 	player1.attackY = 6
+-- 	player1.life, player1.shield  = 1000, 0
+--     player1.x, player1.y, player1.speed, player1.width, player1.height = 100, 100, 150, 35, 51
+-- 	fisica.world:add(player1, player1.x, player1.y, player1.width, player1.height)
+-- 	player1.top, player1.down, player1.right, player1.left = false, true, false, false
 	
-    player1.spritesheet = love.graphics.newImage("Sprites/Characters/player(2).png")
-	player1.width = player1.spritesheet:getWidth()
-	player1.height = player1.spritesheet:getHeight()
-    player1.grid = anim8.newGrid(64, 64, player1.spritesheet:getWidth(), player1.spritesheet:getHeight())
-	player1.grid2 = anim8.newGrid(192, 192, player1.spritesheet:getWidth(), player1.spritesheet:getHeight())
-    player1.walkingRight = anim8.newAnimation(player1.grid('1-9', 12), 0.1)
-    player1.walkingLeft = anim8.newAnimation(player1.grid('1-9', 10), 0.1)
-    player1.walkingTop = anim8.newAnimation(player1.grid('1-9', 9), 0.1)
-    player1.walkingDown = anim8.newAnimation(player1.grid('1-9', 11), 0.1)
-	player1.stoppedTop = anim8.newAnimation(player1.grid('1-1', 9), 0.1)
-	player1.stoppedDown = anim8.newAnimation(player1.grid('1-1', 11), 0.1)
-	player1.stoppedRight = anim8.newAnimation(player1.grid('1-1', 12), 0.1)
-	player1.stoppedLeft = anim8.newAnimation(player1.grid('1-1', 10), 0.1)
-	player1.hitTop = anim8.newAnimation(player1.grid2('1-6', 8), 0.1)
-	player1.hitDown = anim8.newAnimation(player1.grid2('1-6', 10), 0.1)
-	player1.hitRight = anim8.newAnimation(player1.grid2('1-6', 11), 0.1)
-	player1.hitLeft = anim8.newAnimation(player1.grid2('1-6', 9), 0.1)
+--     player1.spritesheet = love.graphics.newImage("Sprites/Characters/player(1).png")
+-- 	player1.width = player1.spritesheet:getWidth()
+-- 	player1.height = player1.spritesheet:getHeight()
+--     player1.grid = anim8.newGrid(64, 64, player1.spritesheet:getWidth(), player1.spritesheet:getHeight())
+-- 	player1.grid2 = anim8.newGrid(192, 192, player1.spritesheet:getWidth(), player1.spritesheet:getHeight())
+--     player1.walkingRight = anim8.newAnimation(player1.grid('1-9', 12), 0.1)
+--     player1.walkingLeft = anim8.newAnimation(player1.grid('1-9', 10), 0.1)
+--     player1.walkingTop = anim8.newAnimation(player1.grid('1-9', 9), 0.1)
+--     player1.walkingDown = anim8.newAnimation(player1.grid('1-9', 11), 0.1)
+-- 	player1.stoppedTop = anim8.newAnimation(player1.grid('1-1', 9), 0.1)
+-- 	player1.stoppedDown = anim8.newAnimation(player1.grid('1-1', 11), 0.1)
+-- 	player1.stoppedRight = anim8.newAnimation(player1.grid('1-1', 12), 0.1)
+-- 	player1.stoppedLeft = anim8.newAnimation(player1.grid('1-1', 10), 0.1)
+-- 	player1.hitTop = anim8.newAnimation(player1.grid2('1-6', 8), 0.1)
+-- 	player1.hitDown = anim8.newAnimation(player1.grid2('1-6', 10), 0.1)
+-- 	player1.hitRight = anim8.newAnimation(player1.grid2('1-6', 11), 0.1)
+-- 	player1.hitLeft = anim8.newAnimation(player1.grid2('1-6', 9), 0.1)
+-- 	player1.death = anim8.newAnimation(player1.grid('1-6', 21), 0.1)
 
-    player1.currentAnimation = player1.stoppedDown
+-- 	player1.currentAnimation = player1.stoppedDown
+	
+-- 	player2.attack = false
+-- 	player2.attackX = 21
+-- 	player2.attackY = 6
+-- 	player2.life, player2.shield  = 1000, 0
+--     player2.x, player2.y, player2.speed, player2.width, player2.height = 400, 100, 150, 35, 51
+-- 	fisica.world:add(player2, player2.x, player2.y, player2.width, player2.height)
+-- 	player2.top, player2.down, player2.right, player2.left = false, true, false, false
+	
+--     player2.spritesheet = love.graphics.newImage("Sprites/Characters/player(2).png")
+-- 	player2.width = player2.spritesheet:getWidth()
+-- 	player2.height = player2.spritesheet:getHeight()
+--     player2.grid = anim8.newGrid(64, 64, player2.spritesheet:getWidth(), player2.spritesheet:getHeight())
+-- 	player2.grid2 = anim8.newGrid(192, 192, player2.spritesheet:getWidth(), player2.spritesheet:getHeight())
+--     player2.walkingRight = anim8.newAnimation(player2.grid('1-9', 12), 0.15)
+--     player2.walkingLeft = anim8.newAnimation(player2.grid('1-9', 10), 0.15)
+--     player2.walkingTop = anim8.newAnimation(player2.grid('1-9', 9), 0.15)
+--     player2.walkingDown = anim8.newAnimation(player2.grid('1-9', 11), 0.15)
+-- 	player2.stoppedTop = anim8.newAnimation(player2.grid('1-1', 9), 0.15)
+-- 	player2.stoppedDown = anim8.newAnimation(player2.grid('1-1', 11), 0.15)
+-- 	player2.stoppedRight = anim8.newAnimation(player2.grid('1-1', 12), 0.15)
+-- 	player2.stoppedLeft = anim8.newAnimation(player2.grid('1-1', 10), 0.15)
+-- 	player2.hitTop = anim8.newAnimation(player2.grid2('1-6', 8), 0.15)
+-- 	player2.hitDown = anim8.newAnimation(player2.grid2('1-6', 10), 0.15)
+-- 	player2.hitRight = anim8.newAnimation(player2.grid2('1-6', 11), 0.15)
+-- 	player2.hitLeft = anim8.newAnimation(player2.grid2('1-6', 9), 0.15)
 
-end
+--     player2.currentAnimation = player2.stoppedDown
+-- end
 
-function player1_update(dt)
-	player1.currentAnimation:update(dt)
+-- function player_update(dt)
+-- 	player1.currentAnimation:update(dt)
+-- 	player2.currentAnimation:update(dt)
 
-	player1.xlr8 = dt * player1.speed
+-- 	player1.xlr8 = dt * player1.speed
+-- 	player2.xlr8 = dt * player2.speed
 
-	if (love.keyboard.isDown("w")) then
-		player1.currentAnimation = player1.walkingTop
-        player1.x, player1.y = fisica.world:move(player1, player1.x, player1.y - player1.xlr8)
-	elseif (love.keyboard.isDown("s")) then
-		player1.currentAnimation = player1.walkingDown
-        player1.x, player1.y = fisica.world:move(player1, player1.x, player1.y + player1.xlr8)
-	elseif (love.keyboard.isDown("a")) then
-		player1.currentAnimation = player1.walkingLeft
-        player1.x, player1.y = fisica.world:move(player1, player1.x - player1.xlr8, player1.y)
-	elseif (love.keyboard.isDown("d")) then
-		player1.currentAnimation = player1.walkingRight
-		player1.x, player1.y = fisica.world:move(player1, player1.x + player1.xlr8, player1.y)
-	elseif (love.keyboard.isDown("q")) or (love.keyboard.isDown("e")) then
-		if player1.top then	
-			player1.currentAnimation = player1.hitTop
-			love.audio.play(sounds.hit2)
-		elseif player1.down then 
-			player1.currentAnimation = player1.hitDown
-			love.audio.play(sounds.hit2)
-		elseif player1.right then 
-			player1.currentAnimation = player1.hitRight
-			love.audio.play(sounds.hit2)
-		elseif player1.left then
-			player1.currentAnimation = player1.hitLeft
-			love.audio.play(sounds.hit2)
-		end
-	else
-		if player1.top then
-			player1.currentAnimation = player1.stoppedTop
-		elseif player1.down then 
-			player1.currentAnimation = player1.stoppedDown
-		elseif player1.right then 
-			player1.currentAnimation = player1.stoppedRight
-		elseif player1.left then 
-			player1.currentAnimation = player1.stoppedLeft
-		end
-	end
-end
+-- 	if (love.keyboard.isDown("up")) then
+-- 		player1.currentAnimation = player1.walkingTop
+--         player1.x, player1.y = fisica.world:move(player1, player1.x, player1.y - player1.xlr8)
+-- 	elseif (love.keyboard.isDown("down")) then
+-- 		player1.currentAnimation = player1.walkingDown
+--         player1.x, player1.y = fisica.world:move(player1, player1.x, player1.y + player1.xlr8)
+-- 	elseif (love.keyboard.isDown("left")) then
+-- 		player1.currentAnimation = player1.walkingLeft
+--         player1.x, player1.y = fisica.world:move(player1, player1.x - player1.xlr8, player1.y)
+-- 	elseif (love.keyboard.isDown("right")) then
+-- 		player1.currentAnimation = player1.walkingRight
+-- 		player1.x, player1.y = fisica.world:move(player1, player1.x + player1.xlr8, player1.y)
+-- 	elseif (love.keyboard.isDown("return")) or (love.keyboard.isDown("rctrl")) then
+-- 		player1.attack = true
+-- 		if player1.top then	
+-- 			player1.currentAnimation = player1.hitTop
+-- 			love.audio.play(sounds.hit)
+-- 		elseif player1.down then 
+-- 			player1.currentAnimation = player1.hitDown
+-- 			love.audio.play(sounds.hit)
+-- 		elseif player1.right then 
+-- 			player1.currentAnimation = player1.hitRight
+-- 			love.audio.play(sounds.hit)
+-- 		elseif player1.left then
+-- 			player1.currentAnimation = player1.hitLeft
+-- 			love.audio.play(sounds.hit)
+-- 		end
 
-function player1_draw()
-	if player1.currentAnimation == player1.hitTop or player1.currentAnimation == player1.hitDown or player1.currentAnimation == player1.hitRight or player1.currentAnimation == player1.hitLeft then
-		player1.currentAnimation:draw(player1.spritesheet, player1.x-65, player1.y-64)
-	else
-		player1.currentAnimation:draw(player1.spritesheet, player1.x, player1.y)
-	end
-end
+-- 		if player2.attack and player2.top and player2.y-player2.attackY <= player1.y then
+-- 			player1.life = player1.life - 1000
+-- 			print(player1.life)
+-- 			player1.x, player1.y = fisica.world:move(player1, player1.x, player1.y-25)
+-- 		elseif player2.attack and player2.down and player2.height+player2.attackY >= player1.y then
+-- 			player1.life = player1.life - 1000
+-- 			print(player1.life)
+-- 			player1.x, player1.y = fisica.world:move(player1, player1.x, player1.y+25)
+-- 		elseif player2.attack and player2.right and player2.width+player2.attackX >= player1.x then
+-- 			player1.life = player1.life - 1000
+-- 			print(player1.life)
+-- 			player1.x, player1.y = fisica.world:move(player1, player1.x+25, player1.y)
+-- 		elseif player2.attack and player2.left and player2.x-player2.attackX <= player1.x then
+-- 			player1.life = player1.life - 1000
+-- 			print(player1.life)
+-- 			player1.x, player1.y = fisica.world:move(player1, player1.x-25, player1.y)
+-- 		end
+-- 	else
+-- 		player1.attack = false
+-- 		if player1.top then
+-- 			player1.currentAnimation = player1.stoppedTop
+-- 		elseif player1.down then 
+-- 			player1.currentAnimation = player1.stoppedDown
+-- 		elseif player1.right then 
+-- 			player1.currentAnimation = player1.stoppedRight
+-- 		elseif player1.left then 
+-- 			player1.currentAnimation = player1.stoppedLeft
+-- 		end
+-- 	end
 
-function player1_released(key) 
-	if key == "w" then
-		player1.top, player1.down, player1.right, player1.left = true, false, false, false
-	elseif key == "s" then 
-		player1.top, player1.down, player1.right, player1.left = false, true, false, false
-	elseif key == "d" then 
-		player1.top, player1.down, player1.right, player1.left = false, false, true, false
-	elseif key == "a" then 
-		player1.top, player1.down, player1.right, player1.left = false, false, false, true
-	end
-	--return key
-end
+-- 	if (love.keyboard.isDown("w")) then
+-- 		player2.currentAnimation = player2.walkingTop
+--         player2.x, player2.y = fisica.world:move(player2, player2.x, player2.y - player2.xlr8)
+-- 	elseif (love.keyboard.isDown("s")) then
+-- 		player2.currentAnimation = player2.walkingDown
+--         player2.x, player2.y = fisica.world:move(player2, player2.x, player2.y + player2.xlr8)
+-- 	elseif (love.keyboard.isDown("a")) then
+-- 		player2.currentAnimation = player2.walkingLeft
+--         player2.x, player2.y = fisica.world:move(player2, player2.x - player2.xlr8, player2.y)
+-- 	elseif (love.keyboard.isDown("d")) then
+-- 		player2.currentAnimation = player2.walkingRight
+-- 		player2.x, player2.y = fisica.world:move(player2, player2.x + player2.xlr8, player2.y)
+-- 	elseif (love.keyboard.isDown("q")) or (love.keyboard.isDown("e")) then
+-- 		player2.attack = true
+-- 		if player2.top then	
+-- 			player2.currentAnimation = player2.hitTop
+-- 			love.audio.play(sounds.hit2)
+-- 		elseif player2.down then 
+-- 			player2.currentAnimation = player2.hitDown
+-- 			love.audio.play(sounds.hit2)
+-- 		elseif player2.right then 
+-- 			player2.currentAnimation = player2.hitRight
+-- 			love.audio.play(sounds.hit2)
+-- 		elseif player2.left then
+-- 			player2.currentAnimation = player2.hitLeft
+-- 			love.audio.play(sounds.hit2)
+-- 		end
 
---love.graphics.rectangle("fill", player1.x+18, player1.y+15, 40, 50)
---love.graphics.rectangle("fill", 0, love.graphics.getHeight() - 90, love.graphics.getWidth(), 100)
+-- 		if player1.attack and player1.top and player1.y-player1.attackY <= player2.y then
+-- 			player2.life = player2.life - 1000
+-- 			print(player2.life)
+-- 			player2.x, player2.y = fisica.world:move(player2, player2.x, player2.y-25)
+-- 		elseif player1.attack and player1.down and player1.height+player1.attackY >= player2.y then
+-- 			player2.life = player2.life - 1000
+-- 			print(player2.life)
+-- 			player2.x, player2.y = fisica.world:move(player2, player2.x, player2.y+25)
+-- 		elseif player1.attack and player1.right and player1.width+player1.attackX >= player2.x then
+-- 			player2.life = player2.life - 1000
+-- 			print(player2.life)
+-- 			player2.x, player2.y = fisica.world:move(player2, player2.x+25, player2.y)
+-- 		elseif player1.attack and player1.left and player1.x-player1.attackX <= player2.x then
+-- 			player2.life = player2.life - 1000
+-- 			print(player2.life)
+-- 			player2.x, player2.y = fisica.world:move(player2, player2.x-25, player2.y)
+-- 		end
+-- 	else
+-- 		player2.attack = false
+-- 		if player2.top then
+-- 			player2.currentAnimation = player2.stoppedTop
+-- 		elseif player2.down then 
+-- 			player2.currentAnimation = player2.stoppedDown
+-- 		elseif player2.right then 
+-- 			player2.currentAnimation = player2.stoppedRight
+-- 		elseif player2.left then 
+-- 			player2.currentAnimation = player2.stoppedLeft
+-- 		end
+-- 	end
+
+-- 	if player1.life == 0 then
+-- 		player1.currentAnimation = player1.death
+-- 	end
+
+-- 	if player2.life == 0 then
+-- 		player2.currentAnimation = player2.death
+-- 	end
+
+-- end
+
+-- function player1_draw()
+-- 	if player1.currentAnimation == player1.hitTop or player1.currentAnimation == player1.hitDown or player1.currentAnimation == player1.hitRight or player1.currentAnimation == player1.hitLeft then
+-- 		player1.currentAnimation:draw(player1.spritesheet, player1.x-65, player1.y-64)
+-- 	else
+-- 		player1.currentAnimation:draw(player1.spritesheet, player1.x, player1.y)
+-- 	end
+-- end
+
+-- function player2_draw()
+-- 	if player2.currentAnimation == player2.hitTop or player2.currentAnimation == player2.hitDown or player2.currentAnimation == player2.hitRight or player2.currentAnimation == player2.hitLeft then
+-- 		player2.currentAnimation:draw(player2.spritesheet, player2.x-65, player2.y-64)
+-- 	else
+-- 		player2.currentAnimation:draw(player2.spritesheet, player2.x, player2.y)
+-- 	end
+-- end
+
+-- function player1_released(key) 
+-- 	if key == "up" then
+-- 		player1.top, player1.down, player1.right, player1.left = true, false, false, false
+-- 	elseif key == "down" then 
+-- 		player1.top, player1.down, player1.right, player1.left = false, true, false, false
+-- 	elseif key == "right" then 
+-- 		player1.top, player1.down, player1.right, player1.left = false, false, true, false
+-- 	elseif key == "left" then 
+-- 		player1.top, player1.down, player1.right, player1.left = false, false, false, true
+-- 	end
+-- end
+
+-- function player2_released(key) 
+-- 	if key == "w" then
+-- 		player2.top, player2.down, player2.right, player2.left = true, false, false, false
+-- 	elseif key == "s" then 
+-- 		player2.top, player2.down, player2.right, player2.left = false, true, false, false
+-- 	elseif key == "d" then 
+-- 		player2.top, player2.down, player2.right, player2.left = false, false, true, false
+-- 	elseif key == "a" then 
+-- 		player2.top, player2.down, player2.right, player2.left = false, false, false, true
+-- 	end
+-- end
+
