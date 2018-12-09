@@ -23,15 +23,13 @@ function menu_update(dt)
     love.audio.play(sounds.menu)    
 end
 
-function love.mousepressed(x, y, button, istouch)
+function menu_mousepressed(x, y, button, istouch)
     if gamestate == "menu" then
         if button == 1 and (x >= 30 and x <= 135) and (y >= 440 and y <= 483) then
-            love.audio.play(sounds.mouse_click)
             gamestate = "game"
         elseif button == 1 and (x >= 30 and x <= 135) and (y >= 490 and y <= 533) then
             gamestate = "help"
         elseif button == 1 and (x >= 30 and x <= 135) and (y >= 540 and y <= 583) then
-            love.audio.play(sounds.mouse_click)
             gamestate = "quit"
         end
     end
@@ -42,6 +40,5 @@ function menu_draw()
     love.graphics.draw(menu.play_button, 30, 440)
     love.graphics.draw(menu.help_button, 30, 490)
     love.graphics.draw(menu.quit_button, 30, 540)
-    -- love.graphics.rectangle('fill', 30, 490, 105, 43)
 end
 

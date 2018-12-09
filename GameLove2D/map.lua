@@ -10,8 +10,9 @@ fisica.world = bump.newWorld(64) -- declaro o mundo na bump.lua
 
 function map_load()
     -- adição de arquivos de audios utilizados no jogo
-    sounds.mouse_click = love.audio.newSource('sounds/click_button.wav', 'static')
+    font1 = love.graphics.newFont("Sprites/FontBases/plain_black_wide.ttf",24)
     sounds.menu = love.audio.newSource('sounds/main_menu_theme.mp3', 'static')
+    sounds.help = love.audio.newSource('sounds/help_theme.mp3', 'static')
     sounds.game = love.audio.newSource('sounds/battle.mp3', 'static')
     sounds.hit = love.audio.newSource('sounds/sword_slash_sound.wav', 'static')
     sounds.hit2 = love.audio.newSource('sounds/mace_hit_sound.wav', 'static')
@@ -30,7 +31,9 @@ function map_load()
 end
 
 function map_update(dt)
-    
+    love.audio.pause(sounds.menu)
+    love.audio.setVolume(0.15)
+    love.audio.play(sounds.game)
 end
 
 function map_draw()

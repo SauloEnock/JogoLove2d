@@ -2,6 +2,7 @@
 
 require "map"
 require "menu"
+require "help"
 -- require "char_update"
 require "player1"
 require "player2"
@@ -9,6 +10,7 @@ require "player2"
 function love.load()
 	map_load()
 	menu_load()
+	help_load()
 	player1_load()
 	player2_load()
 end
@@ -17,12 +19,12 @@ function love.update(dt)
 	if gamestate == "menu" then
 		menu_update(dt)
 	elseif gamestate == "game" then 
-		love.audio.pause(sounds.menu)
-		love.audio.setVolume(0.15)
-		love.audio.play(sounds.game)
+		map_update(dt)
 		player1_update(dt)
 		player2_update(dt)
 		battle_update(dt)
+	elseif gamestate == "help" then
+		help_update(dt)
 	elseif gamestate == "quit" then 
 		love.event.quit()
 	end
@@ -35,6 +37,8 @@ function love.draw()
 		map_draw()
 		player1_draw()
 		player2_draw()
+	elseif gamestate == "help" then 
+		help_draw()
 	elseif gamestate == "quit" then 
 		love.event.quit()
 	end
@@ -43,6 +47,14 @@ end
 function love.keyreleased(key)
 	player1_released(key)
 	player2_released(key)
+end
+
+function love.mousepressed(x, y, button, istouch)
+	if gamestate == "menu" then
+		menu_mousepressed(x, y, button, istouch)
+	else 
+		help_mousepressed(x, y, button, istouch)
+	end
 end
 
 --[[
