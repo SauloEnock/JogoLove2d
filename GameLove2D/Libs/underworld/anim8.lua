@@ -1,14 +1,13 @@
 
 
-
 local anim8 = {
     _VERSION     = 'anim8 v2.2.0',
-    _DESCRIPTION = 'An animation library for LÃ–VE',
+    _DESCRIPTION = 'An animation library for LÖVE',
     _URL         = 'https://github.com/kikito/anim8',
     _LICENSE     = [[
       MIT LICENSE
 
-      Copyright (c) 2011 Enrique GarcÃ­a Cota
+      Copyright (c) 2011 Enrique García Cota
 
       Permission is hereby granted, free of charge, to any person obtaining a
       copy of this software and associated documentation files (the

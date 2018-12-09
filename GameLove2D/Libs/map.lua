@@ -1,6 +1,6 @@
 
-mapa = require "maptiled(1)" -- chamo o arquivo fornecido pelo Tiled[mapatiled(1)] contendo os objetos do mapa. 
-bump = require "bump" -- Biblioteca de física. 
+mapa = require "Libs/maptiled(1)" -- chamo o arquivo fornecido pelo Tiled[mapatiled(1)] contendo os objetos do mapa. 
+bump = require "Libs/bump" -- Biblioteca de física. 
 
 sounds = {} -- vetor que conterá todas as musicas.
 fisica = {} -- vetor que conterá o mundo.
