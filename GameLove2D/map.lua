@@ -1,18 +1,23 @@
 
 
-mapa = require "maptiled(1)"
-bump = require "bump"
+mapa = require "maptiled(1)" -- chamo o arquivo fornecido pelo Tiled contendo os objetos do mapa. 
+bump = require "bump" -- chamo a 
 
 sounds = {}
 fisica = {}
-fisica.world = bump.newWorld(64)
+fisica.world = bump.newWorld(64) -- declaro o mundo na bump.lua
 
 
 function map_load()
+    -- adição de arquivos de audios utilizados no jogo
+    sounds.mouse_click = love.audio.newSource('sounds/click_button.wav', 'static')
+    sounds.menu = love.audio.newSource('sounds/main_menu_theme.mp3', 'static')
+    sounds.game = love.audio.newSource('sounds/battle.mp3', 'static')
     sounds.hit = love.audio.newSource('sounds/sword_slash_sound.wav', 'static')
     sounds.hit2 = love.audio.newSource('sounds/mace_hit_sound.wav', 'static')
-    arena = love.graphics.newImage("arena(2).png")
+    arena = love.graphics.newImage("Sprites/Maps/arena(2).png")
 
+    -- incrementa o mapa e os objetos criados no Tiled e exportados como arquivo lua diretamente no jogo por meio da bump.lua
     for i = 1, #mapa.layers do
         if mapa.layers[i].type == "objectgroup" then
             v = mapa.layers[i]
@@ -31,6 +36,8 @@ end
 function map_draw()
     love.graphics.draw(arena, 0, -4)
 end
+
+
 
 --[[
 
