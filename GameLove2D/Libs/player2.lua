@@ -17,8 +17,6 @@ function player2_load()
 	player2.attack = false
 	
     player2.spritesheet = love.graphics.newImage("Sprites/Characters/player(2).png")
-	player2.width = player2.spritesheet:getWidth()
-	player2.height = player2.spritesheet:getHeight()
     player2.grid = anim8.newGrid(64, 64, player2.spritesheet:getWidth(), player2.spritesheet:getHeight())
 	player2.grid2 = anim8.newGrid(192, 192, player2.spritesheet:getWidth(), player2.spritesheet:getHeight())
     player2.walkingRight = anim8.newAnimation(player2.grid('1-9', 12), 0.1)
@@ -77,6 +75,7 @@ function player2_update(dt)
 			player2.currentAnimation = player2.hitLeft
 			love.audio.play(sounds.hit2)
 		end
+		battle_update(dt)
 	else
 		player2.attack = false
 		-- Caso o jogador 2 não esteja se movimentando, utilizando a função "key_released", declaro a atual animação dele, 
